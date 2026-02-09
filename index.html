@@ -1,213 +1,987 @@
 <!DOCTYPE html>
 <html lang="ta">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Darllu Love Page 💕</title>
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Dancing+Script&family=Great+Vibes&family=Pacifico&family=Satisfy&display=swap" rel="stylesheet">
-<style>
-  /* RESET */
-  * { margin:0; padding:0; box-sizing:border-box; font-family: 'Satisfy', sans-serif; }
-  body, html { width:100%; height:100%; overflow-x:hidden; background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 50%, #ffd4e8 100%); }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mathi ❤️ Nithish</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Dancing+Script:wght@400;700&family=Satisfy&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-  /* FONTS */
-  h1,h2,h3,h4,h5,h6 { font-family:'Great Vibes', cursive; color:#d63384; }
-  .dancing { font-family:'Dancing Script', cursive; }
-  .satisfy { font-family:'Satisfy', cursive; color:#555; }
+        body {
+            font-family: 'Satisfy', cursive;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffe0f0 50%, #ffd4e8 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
 
-  /* COMMON CARD */
-  .card { background:#fff; border-radius:20px; padding:35px 30px; max-width:450px; margin:50px auto; box-shadow:0 5px 20px rgba(0,0,0,0.1); text-align:center; position:relative; }
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
 
-  /* BUTTONS */
-  button { font-family:'Pacifico', cursive; padding:12px 25px; font-size:1.1rem; border:none; border-radius:25px; cursor:pointer; transition:0.3s; min-height:44px; min-width:80px; }
-  button:hover { transform:translateY(-2px); box-shadow:0 5px 20px rgba(0,0,0,0.2); }
-  .pink-btn { background: linear-gradient(135deg,#ff6b9d 0%,#d63384 100%); color:#fff; }
-  .green-btn { background: linear-gradient(135deg,#28a745 0%,#20c997 100%); color:#fff; }
-  .red-btn { background: linear-gradient(135deg,#dc3545 0%,#c82333 100%); color:#fff; }
+        .floating-symbol {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.15;
+            animation: floatSymbol 15s infinite ease-in-out;
+        }
 
-  /* LOVE CALCULATOR */
-  .love-calc input { width:80%; padding:10px; margin:10px 0; border-radius:10px; border:1px solid #ccc; cursor:not-allowed; background:#f5f5f5; text-align:center; }
+        @keyframes floatSymbol {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+        }
 
-  /* PROGRESS BAR */
-  .progress-container { width:100%; height:40px; background:#f0f0f0; border-radius:20px; margin-top:20px; overflow:hidden; position:relative; }
-  .progress-fill { height:100%; width:0%; background:linear-gradient(90deg,#ff6b9d 0%,#d63384 100%); transition:width 2s ease-out; display:flex; align-items:center; justify-content:center; color:#fff; font-family:'Great Vibes', cursive; font-size:2rem; text-shadow:1px 1px 2px rgba(0,0,0,0.2); }
+        .screen {
+            display: none;
+            min-height: 100vh;
+            padding: 20px;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
 
-  /* COUNTDOWN */
-  .countdown-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:20px; }
-  .countdown-box { background: linear-gradient(135deg,#ffe0f0 0%,#ffeef8 100%); border:2px solid #ff6b9d; border-radius:15px; padding:20px 15px; box-shadow:0 5px 15px rgba(255,107,157,0.2); animation:pulse 2s infinite; }
-  .countdown-box .num { font-family:'Great Vibes', cursive; font-size:3rem; color:#d63384; font-weight:bold; }
-  .countdown-box .label { font-family:'Satisfy', cursive; font-size:1rem; color:#555; margin-top:5px; }
+        .screen.active {
+            display: flex;
+        }
 
-  /* MEMORY TIMELINE */
-  .timeline { margin-top:20px; text-align:left; }
-  .timeline-item { position:relative; padding-left:40px; margin-bottom:20px; opacity:0; transform:translateY(10px); animation:slideIn 0.5s forwards; }
-  .timeline-item .date { font-family:'Dancing Script', cursive; color:#d63384; font-weight:bold; font-size:0.95rem; }
-  .timeline-item .text { font-family:'Satisfy', cursive; color:#555; line-height:1.8; margin-top:5px; }
-  .timeline-item::before { content:'💖'; position:absolute; left:0; top:0; font-size:1.5rem; }
+        .card {
+            background: white;
+            border-radius: 30px;
+            padding: 35px 30px;
+            box-shadow: 0 10px 40px rgba(214, 51, 132, 0.2);
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            animation: fadeIn 0.8s ease-out;
+        }
 
-  /* PROPOSAL SCREEN */
-  .proposal-buttons { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin-top:20px; }
+        .card::before,
+        .card::after {
+            content: '💖';
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.3;
+        }
 
-  /* ACCEPTANCE CARD */
-  .envelope-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); display:flex; justify-content:center; align-items:center; z-index:2000; opacity:0; pointer-events:none; transition:0.5s; }
-  .envelope { perspective:1000px; position:relative; width:250px; height:200px; }
-  .envelope-flap { position:absolute; top:0; width:100%; height:150px; background:linear-gradient(#ff6b9d,#ff85ad); border-radius:10px; transform-origin:top center; display:flex; justify-content:center; align-items:center; font-size:3rem; color:#fff; }
-  .envelope-back { position:absolute; bottom:0; width:100%; height:200px; background:linear-gradient(#ff85ad,#ffa8c5); border-radius:10px; }
+        .card::before {
+            top: -10px;
+            left: -10px;
+        }
 
-  .letter { background:#fff; border:3px solid #ff6b9d; border-radius:15px; padding:35px 30px; max-width:450px; text-align:center; box-shadow:0 15px 50px rgba(0,0,0,0.3); position:relative; opacity:0; transform:translateY(50px); }
-  .letter .highlight { color:#d63384; font-weight:600; }
-  .love-message { background:linear-gradient(135deg,#ffe0f0 0%,#ffeef8 100%); border:2px dashed #ff6b9d; border-radius:15px; padding:20px; margin:20px 0; position:relative; }
-  .love-message::before { content:'💖'; position:absolute; top:-10px; left:-10px; font-size:1.5rem; }
-  .love-message::after { content:'💖'; position:absolute; bottom:-10px; right:-10px; font-size:1.5rem; }
+        .card::after {
+            bottom: -10px;
+            right: -10px;
+        }
 
-  /* CELEBRATION EFFECTS */
-  .heart { position:fixed; bottom:-50px; font-size:30px; color:#ff6b9d; pointer-events:none; z-index:999; animation:float 4s linear forwards; }
-  .confetti { position:fixed; width:10px; height:10px; pointer-events:none; z-index:999; animation:confettiFall 3s ease-out forwards; }
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            color: #d63384;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(214, 51, 132, 0.2);
+        }
 
-  /* MUSIC BUTTON */
-  #musicBtn { position:fixed; bottom:20px; right:20px; width:50px; height:50px; border-radius:50%; background:linear-gradient(135deg,#ff6b9d 0%,#d63384 100%); color:#fff; border:none; font-size:1.5rem; display:flex; justify-content:center; align-items:center; z-index:1001; cursor:pointer; transition:0.3s; }
-  #musicBtn:hover { transform:scale(1.1); }
+        .input-group {
+            margin-bottom: 20px;
+        }
 
-  /* ANIMATIONS */
-  @keyframes fadeIn { to { opacity:1; } }
-  @keyframes slideIn { to { opacity:1; transform:translateY(0); } }
-  @keyframes pulse { 0%,100%{transform:scale(1);}50%{transform:scale(1.02);} }
-  @keyframes float {0%{transform:translateY(0) rotate(0deg);opacity:1;}100%{transform:translateY(-100vh) rotate(360deg);opacity:0;} }
-  @keyframes confettiFall {0%{transform:translateY(-10vh) rotate(0deg);opacity:1;}100%{transform:translateY(100vh) rotate(720deg);opacity:0;} }
-  @keyframes openEnvelope {0%{transform:rotateX(0deg);}100%{transform:rotateX(-180deg);} }
-  @keyframes slideUpLetter { to { opacity:1; transform:translateY(0); } }
-  @keyframes cry { 0%,100%{transform:scale(1);}50%{transform:scale(1.1);} }
-  @keyframes progressFill { from{width:0%;} to{width:100%;} }
-  @keyframes heartExplosion {0%{transform:scale(0);opacity:0;}50%{transform:scale(1.5);opacity:1;}100%{transform:scale(2);opacity:0;} }
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 0.95rem;
+        }
 
-  /* MOBILE */
-  @media(max-width:480px){
-    h1,h2,h3,h4,h5,h6{font-size:1.6rem;}
-    button{font-size:1rem;}
-    .countdown-box .num{font-size:2rem;}
-    .letter{padding:25px 20px;}
-    .letter h1{font-size:2rem;}
-  }
-</style>
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ff6b9d;
+            border-radius: 15px;
+            font-family: 'Satisfy', cursive;
+            font-size: 1rem;
+            background: #f5f5f5;
+            cursor: not-allowed;
+            color: #333;
+        }
+
+        .btn {
+            font-family: 'Pacifico', cursive;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: block;
+            margin: 20px auto;
+            min-height: 44px;
+            min-width: 120px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #d63384 0%, #ff6b9d 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(214, 51, 132, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 40px;
+            background: #f0f0f0;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 20px 0;
+            position: relative;
+            display: none;
+        }
+
+        .progress-container.show {
+            display: block;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b9d 0%, #d63384 100%);
+            border-radius: 20px;
+            transition: width 2s ease-out;
+            width: 0%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .progress-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .result {
+            text-align: center;
+            margin: 20px 0;
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        .result-number {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            color: #d63384;
+            margin: 10px 0;
+        }
+
+        .result-message {
+            font-size: 1.1rem;
+            color: #555;
+        }
+
+        .hearts-explosion {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .explosion-heart {
+            position: absolute;
+            font-size: 2rem;
+            animation: heartExplosion 1.5s ease-out forwards;
+        }
+
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .countdown-item {
+            background: linear-gradient(135deg, #ffe0f0 0%, #ffeef8 100%);
+            border: 2px solid #ff6b9d;
+            border-radius: 15px;
+            padding: 20px 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(255, 107, 157, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        .countdown-number {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            color: #d63384;
+            font-weight: bold;
+            display: block;
+        }
+
+        .countdown-label {
+            font-family: 'Satisfy', cursive;
+            font-size: 1rem;
+            color: #555;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #555;
+            font-size: 1rem;
+            margin-top: 15px;
+        }
+
+        .timeline {
+            margin: 20px 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 20px;
+            opacity: 0;
+            animation: slideIn 0.5s ease-out forwards;
+        }
+
+        .timeline-item::before {
+            content: '💖';
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 1.2rem;
+        }
+
+        .timeline-date {
+            font-family: 'Dancing Script', cursive;
+            font-size: 0.95rem;
+            color: #d63384;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .timeline-text {
+            font-family: 'Satisfy', cursive;
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .question-text {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.8rem;
+            color: #d63384;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            box-shadow: 0 5px 20px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn-yes:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
+        }
+
+        .btn-no {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+            box-shadow: 0 5px 20px rgba(220, 53, 69, 0.3);
+        }
+
+        .btn-no:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(220, 53, 69, 0.4);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .envelope-wrapper {
+            perspective: 1000px;
+            position: relative;
+        }
+
+        .envelope {
+            width: 350px;
+            height: 200px;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .envelope-flap {
+            position: absolute;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff85ad 100%);
+            border-radius: 10px 10px 0 0;
+            transform-origin: top center;
+            animation: openEnvelope 1.5s ease-out forwards;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .envelope-body {
+            position: absolute;
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #ff85ad 0%, #ffa8c5 100%);
+            border-radius: 10px;
+        }
+
+        .letter-card {
+            background: white;
+            border: 3px solid #ff6b9d;
+            border-radius: 15px;
+            padding: 35px 30px;
+            max-width: 450px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: slideUpLetter 1s ease-out 1.5s forwards;
+            position: relative;
+            margin-top: 20px;
+        }
+
+        .letter-card::before {
+            content: '💕';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.5rem;
+        }
+
+        .letter-heading {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5rem;
+            color: #d63384;
+            text-shadow: 2px 2px 4px rgba(214, 51, 132, 0.2);
+            margin-bottom: 25px;
+        }
+
+        .letter-card p {
+            font-family: 'Satisfy', cursive;
+            font-size: 0.95rem;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .highlight {
+            color: #d63384;
+            font-weight: 600;
+        }
+
+        .love-message {
+            background: linear-gradient(135deg, #ffe0f0 0%, #ffeef8 100%);
+            border: 2px dashed #ff6b9d;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            position: relative;
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.3rem;
+            color: #d63384;
+        }
+
+        .love-message::before {
+            content: '💖';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            font-size: 1.5rem;
+        }
+
+        .love-message::after {
+            content: '💖';
+            position: absolute;
+            bottom: -10px;
+            right: -10px;
+            font-size: 1.5rem;
+        }
+
+        .closing {
+            font-family: 'Great Vibes', cursive;
+            font-size: 1.4rem;
+            color: #d63384;
+            margin-top: 20px;
+        }
+
+        .signature {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 15px;
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            box-shadow: 0 5px 20px rgba(37, 211, 102, 0.3);
+            margin-top: 25px;
+        }
+
+        .btn-whatsapp:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+        }
+
+        .crying-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .crying-overlay.active {
+            display: flex;
+        }
+
+        .cry-emoji {
+            font-size: 5rem;
+            animation: cry 1s infinite ease-in-out;
+        }
+
+        .heart {
+            position: fixed;
+            bottom: -50px;
+            font-size: 30px;
+            color: #ff6b9d;
+            z-index: 999;
+            pointer-events: none;
+            animation: float 4s ease-in forwards;
+        }
+
+        .confetti {
+            position: fixed;
+            top: -10vh;
+            width: 10px;
+            height: 10px;
+            z-index: 999;
+            pointer-events: none;
+            animation: confettiFall 3s ease-out forwards;
+        }
+
+        .music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ff6b9d 0%, #d63384 100%);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 15px rgba(214, 51, 132, 0.4);
+            z-index: 1001;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .music-control:hover {
+            transform: scale(1.1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        @keyframes openEnvelope {
+            0% { transform: rotateX(0deg); }
+            100% { transform: rotateX(-180deg); }
+        }
+
+        @keyframes slideUpLetter {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes cry {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes confettiFall {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
+
+        @keyframes heartExplosion {
+            0% { transform: scale(0); opacity: 0; }
+            50% { transform: scale(1.5); opacity: 1; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.6rem;
+            }
+
+            .card {
+                padding: 25px 20px;
+            }
+
+            .question-text {
+                font-size: 1.5rem;
+            }
+
+            .btn {
+                font-size: 1rem;
+            }
+
+            .countdown-number {
+                font-size: 2rem;
+            }
+
+            .result-number {
+                font-size: 2.5rem;
+            }
+
+            .letter-heading {
+                font-size: 2rem;
+            }
+
+            .love-message {
+                font-size: 1.1rem;
+            }
+
+            .countdown-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
 </head>
 <body>
+    <audio id="bgMusic" autoplay loop preload="auto" src="romantic-music.mp3"></audio>
 
-<!-- MUSIC -->
-<audio id="bgMusic" autoplay loop preload="auto" src="romantic-music.mp3"></audio>
-<button id="musicBtn">🔊</button>
-
-<!-- SCREEN 0: LOVE CALCULATOR -->
-<div class="card love-calc" id="screen0">
-  <h1>Love Calculator 💕</h1>
-  <input type="text" value="Mathi" readonly>
-  <input type="text" value="Nithish" readonly>
-  <button id="calcBtn" class="pink-btn">Calculate Love 💖</button>
-  <div class="progress-container" style="display:none;">
-    <div class="progress-fill" id="progressFill">0%</div>
-  </div>
-  <div id="loveResult" style="margin-top:20px; font-size:2rem; color:#d63384; display:none;"></div>
-  <button id="continueBtn" class="pink-btn" style="display:none;margin-top:20px;">Continue to Memories ❤️</button>
-</div>
-
-<!-- SCREEN 1: COUNTDOWN -->
-<div class="card" id="screen1" style="display:none;">
-  <h1>நாம சேர்ந்து...</h1>
-  <div class="countdown-grid">
-    <div class="countdown-box"><div class="num" id="years">0</div><div class="label">வருஷம்</div></div>
-    <div class="countdown-box"><div class="num" id="months">0</div><div class="label">மாசம்</div></div>
-    <div class="countdown-box"><div class="num" id="days">0</div><div class="label">நாள்</div></div>
-    <div class="countdown-box"><div class="num" id="hours">0</div><div class="label">மணி</div></div>
-    <div class="countdown-box"><div class="num" id="minutes">0</div><div class="label">நிமிஷம்</div></div>
-    <div class="countdown-box"><div class="num" id="seconds">0</div><div class="label">விநாடி</div></div>
-  </div>
-  <div style="margin-top:10px; font-family:'Satisfy', cursive;">இவ்வளவு நேரமா நாம ஒண்ணா இருக்கோம் 💕</div>
-  <button id="nextBtn1" class="pink-btn" style="display:none;margin-top:20px;">Next 💖</button>
-</div>
-
-<!-- SCREEN 2: INTRO -->
-<div class="card" id="screen2" style="display:none;">
-  <h1>Mathi unta oru memories recall kaatanum 💕</h1>
-  <button id="nextBtn2" class="pink-btn">Continue</button>
-</div>
-
-<!-- SCREEN 3: TIMELINE -->
-<div class="card" id="screen3" style="display:none;">
-  <div class="timeline">
-    <div class="timeline-item" style="animation-delay:0s;">
-      <div class="date">Sep 28, 2022</div>
-      <div class="text">12th quarterly exam நடுவுல நாம முதல் தடவை பார்த்தோம். அன்னைக்கிருந்து எல்லாமே மாறிடுச்சு.</div>
+    <div class="floating-hearts">
+        <div class="floating-symbol" style="top: 10%; left: 10%;">💕</div>
+        <div class="floating-symbol" style="top: 20%; left: 80%;">💖</div>
+        <div class="floating-symbol" style="top: 40%; left: 15%;">💗</div>
+        <div class="floating-symbol" style="top: 60%; left: 75%;">💝</div>
+        <div class="floating-symbol" style="top: 70%; left: 30%;">💓</div>
+        <div class="floating-symbol" style="top: 85%; left: 60%;">💞</div>
     </div>
-    <div class="timeline-item" style="animation-delay:1.5s;">
-      <div class="date">Oct 11, 2022</div>
-      <div class="text">Classroom-ல நீ என்கிட்ட propose பண்ணின. நான் சந்தோஷமா accept பண்ணேன்.</div>
-    </div>
-    <div class="timeline-item" style="animation-delay:3s;">
-      <div class="date">அன்னைக்கிருந்து இன்னைக்கு வரை</div>
-      <div class="text">நாம Everything to each other ஆ இருக்கோம். எந்த நேரமும் ஒருத்தருக்கு ஒருத்தர் support ஆ இருந்தோம்.</div>
-    </div>
-    <div class="timeline-item" style="animation-delay:4.5s;">
-      <div class="date">எங்க பயணம்</div>
-      <div class="text">நம்ம parents-க்கு எதிரா நின்னு இந்த relationship-ஐ நடத்தினோம். கஷ்டமா இருந்தாலும் நாம ஒண்ணா இருந்தோம்.</div>
-    </div>
-    <div class="timeline-item" style="animation-delay:6s;">
-      <div class="date">இப்போ</div>
-      <div class="text">இவ்வளவு நாள் நீ என்னோட இருந்த... இனிமேலும் என்னோட தொடர்ந்து இருப்பியா?</div>
-    </div>
-  </div>
-  <button id="nextBtn3" class="pink-btn" style="display:none;margin-top:20px;">Next</button>
-</div>
 
-<!-- SCREEN 4: PROPOSAL QUESTION -->
-<div class="card" id="screen4" style="display:none;">
-  <h1>நீ என் வாழ்க்கையில் தொடர்ந்து இருக்கணுமா? ❤️</h1>
-  <div class="proposal-buttons">
-    <button id="acceptBtn" class="green-btn">Irukken!! 💕</button>
-    <button id="rejectBtn" class="red-btn">Illa 😢</button>
-  </div>
-</div>
+    <button class="music-control" id="musicControl">🔊</button>
 
-<!-- SCREEN 5B: ACCEPTANCE ENVELOPE & LETTER -->
-<div class="envelope-overlay" id="envelopeOverlay">
-  <div class="envelope">
-    <div class="envelope-flap" id="envelopeFlap">💌</div>
-    <div class="envelope-back"></div>
-  </div>
-  <div class="letter" id="letter">
-    <h1>I Love You Darllu 💖</h1>
-    <p><span class="highlight">Sep 28, 2022</span> அன்னைக்கு 12th quarterly exam நடுவுல நாம முதல் தடவை பார்த்தோம். அன்னைக்கிருந்து என் வாழ்க்கை மாறிடுச்சு.</p>
-    <p><span class="highlight">Oct 11, 2022</span> அன்னைக்கு classroom-ல நீ என்கிட்ட propose பண்ணின, நான் சந்தோஷமா accept பண்ணேன். அது என் வாழ்க்கையோட best day.</p>
-    <p>அன்னைக்கிருந்து இன்னைக்கு வரைக்கும் நாம <span class="highlight">Everything to each other</span> ஆ இருக்கோம். எந்த நேரமும் ஒருத்தருக்கு ஒருத்தர் support ஆ இருந்தோம்.</p>
-    <p>நம்ம parents-க்கு எதிரா நின்னு இந்த relationship-ஐ நடத்தினோம். ரொம்ப கஷ்டமா இருந்தாலும், நீ என் கூட இருந்தததால எல்லாமே எளிதா ஆச்சு.</p>
-    <div class="love-message">
-      Darllu, நீ என் வாழ்க்கையோட அர்த்தம். உன்னோட இல்லாம என் வாழ்க்கை incomplete. நான் உனக்கு promise பண்ணுறேன் - எப்பவும் உன் பக்கத்துல இருப்பேன், உன்னை காப்பாத்துவேன், உன்னை நேசிப்பேன். நீயும் என் கூட எப்பவும் இருப்பியா? 💕
+    <!-- Screen 0: Love Calculator -->
+    <div class="screen active" id="screen0">
+        <div class="card">
+            <h1>Love Calculator 💕</h1>
+            <div class="input-group">
+                <label>உன் பெயர்</label>
+                <input type="text" value="Mathi" readonly>
+            </div>
+            <div class="input-group">
+                <label>என் பெயர்</label>
+                <input type="text" value="Nithish" readonly>
+            </div>
+            <button class="btn btn-primary" id="calculateBtn">Calculate Love 💖</button>
+            <div class="progress-container" id="progressContainer">
+                <div class="progress-bar" id="progressBar">
+                    <span class="progress-text" id="progressText">0%</span>
+                </div>
+            </div>
+            <div class="result" id="result" style="display: none;">
+                <div class="result-number">100%</div>
+                <div class="result-message">நம்ம love 100% perfect match! 💕</div>
+            </div>
+            <button class="btn btn-primary" id="continueBtn" style="display: none;">Continue to Memories ❤️</button>
+        </div>
     </div>
-    <p>நீ என்றும் என் Darllu தான் ❤️</p>
-    <p style="font-size:0.9rem;color:#888;">எப்பவும் உன்னோடு,<br>உன் ❤️</p>
-    <a href="#" id="waAccept" class="green-btn" style="margin-top:25px; display:inline-block;">Send reply ❤️</a>
-  </div>
-</div>
 
-<script>
-  // MUSIC
-  const audio = document.getElementById('bgMusic');
-  audio.volume = 0.5;
-  audio.play().catch(err=>{
-    const playOnInteraction=()=>{
-      audio.play();
-      document.removeEventListener('click',playOnInteraction);
-      document.removeEventListener('touchstart',playOnInteraction);
-    };
-    document.addEventListener('click',playOnInteraction);
-    document.addEventListener('touchstart',playOnInteraction);
-  });
-  const musicBtn=document.getElementById('musicBtn');
-  musicBtn.addEventListener('click',()=>{
-    if(audio.paused){audio.play(); musicBtn.textContent='🔊';}
-    else{audio.pause(); musicBtn.textContent='🔇';}
-  });
+    <!-- Screen 1: Countdown Timer -->
+    <div class="screen" id="screen1">
+        <div class="card">
+            <h1>நாம சேர்ந்து...</h1>
+            <div class="countdown-grid">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="years">0</span>
+                    <span class="countdown-label">வருஷம்</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="months">0</span>
+                    <span class="countdown-label">மாசம்</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">0</span>
+                    <span class="countdown-label">நாள்</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">0</span>
+                    <span class="countdown-label">மணி</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">0</span>
+                    <span class="countdown-label">நிமிஷம்</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">0</span>
+                    <span class="countdown-label">விநாடி</span>
+                </div>
+            </div>
+            <div class="subtitle">இவ்வளவு நேரமா நாம ஒண்ணா இருக்கோம் 💕</div>
+            <button class="btn btn-primary" id="nextBtn1" style="display: none;">Next 💖</button>
+        </div>
+    </div>
 
-  // SCREEN FLOW
-  const screen0=document.getElementById('screen0');
-  const screen1=document.getElementById('screen1');
-  const screen2=document.getElementById('screen2');
+    <!-- Screen 2: Introduction -->
+    <div class="screen" id="screen2">
+        <div class="card">
+            <h1>Mathi unta oru memories recall kaatanum 💕</h1>
+            <button class="btn btn-primary" id="continueBtn2">Continue</button>
+        </div>
+    </div>
+
+    <!-- Screen 3: Memory Timeline -->
+    <div class="screen" id="screen3">
+        <div class="card">
+            <h1>நம்ம பயணம் 💖</h1>
+            <div class="timeline" id="timeline">
+                <div class="timeline-item" style="animation-delay: 0s;">
+                    <div class="timeline-date">Sep 28, 2022</div>
+                    <div class="timeline-text">12th quarterly exam நடுவுல நாம முதல் தடவை பார்த்தோம். அன்னைக்கிருந்து எல்லாமே மாறிடுச்சு.</div>
+                </div>
+                <div class="timeline-item" style="animation-delay: 1.5s;">
+                    <div class="timeline-date">Oct 11, 2022</div>
+                    <div class="timeline-text">Classroom-ல நீ என்கிட்ட propose பண்ணின. நான் சந்தோஷமா accept பண்ணேன்.</div>
+                </div>
+                <div class="timeline-item" style="animation-delay: 3s;">
+                    <div class="timeline-date">அன்னைக்கிருந்து இன்னைக்கு வரை</div>
+                    <div class="timeline-text">நாம Everything to each other ஆ இருக்கோம். எந்த நேரமும் ஒருத்தருக்கு ஒருத்தர் support ஆ இருந்தோம்.</div>
+                </div>
+                <div class="timeline-item" style="animation-delay: 4.5s;">
+                    <div class="timeline-date">எங்க பயணம்</div>
+                    <div class="timeline-text">நம்ம parents-க்கு எதிரா நின்னு இந்த relationship-ஐ நடத்தினோம். கஷ்டமா இருந்தாலும் நாம ஒண்ணா இருந்தோம்.</div>
+                </div>
+                <div class="timeline-item" style="animation-delay: 6s;">
+                    <div class="timeline-date">இப்போ</div>
+                    <div class="timeline-text">இவ்வளவு நாள் நீ என்னோட இருந்த... இனிமேலும் என்னோட தொடர்ந்து இருப்பியா?</div>
+                </div>
+            </div>
+            <button class="btn btn-primary" id="nextBtn3" style="display: none;">Next</button>
+        </div>
+    </div>
+
+    <!-- Screen 4: Proposal Question -->
+    <div class="screen" id="screen4">
+        <div class="card">
+            <div class="question-text">நீ என் வாழ்க்கையில் தொடர்ந்து இருக்கணுமா? ❤️</div>
+            <div class="button-group">
+                <button class="btn btn-yes" id="yesBtn">Irukken!! 💕</button>
+                <button class="btn btn-no" id="noBtn">Illa 😢</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Crying Overlay -->
+    <div class="crying-overlay" id="cryingOverlay">
+        <div class="cry-emoji">😭💔</div>
+    </div>
+
+    <!-- Acceptance Modal -->
+    <div class="modal" id="acceptModal">
+        <div style="text-align: center;">
+            <div class="envelope-wrapper">
+                <div class="envelope">
+                    <div class="envelope-flap">💌</div>
+                    <div class="envelope-body"></div>
+                </div>
+            </div>
+            <div class="letter-card">
+                <h2 class="letter-heading">I Love You Darllu 💖</h2>
+                <p><span class="highlight">Sep 28, 2022</span> அன்னைக்கு 12th quarterly exam நடுவுல நாம முதல் தடவை பார்த்தோம். அன்னைக்கிருந்து என் வாழ்க்கை மாறிடுச்சு.</p>
+                <p><span class="highlight">Oct 11, 2022</span> அன்னைக்கு classroom-ல நீ என்கிட்ட propose பண்ணின, நான் சந்தோஷமா accept பண்ணேன். அது என் வாழ்க்கையோட best day.</p>
+                <p>அன்னைக்கிருந்து இன்னைக்கு வரைக்கும் நாம <span class="highlight">Everything to each other</span> ஆ இருக்கோம். எந்த நேரமும் ஒருத்தருக்கு ஒருத்தர் support ஆ இருந்தோம்.</p>
+                <p>நம்ம parents-க்கு எதிரா நின்னு இந்த relationship-ஐ நடத்தினோம். ரொம்ப கஷ்டமா இருந்தாலும், நீ என் கூட இருந்தததால எல்லாமே எளிதா ஆச்சு.</p>
+                <div class="love-message">
+                    Darllu, நீ என் வாழ்க்கையோட அர்த்தம். உன்னோட இல்லாம என் வாழ்க்கை incomplete. நான் உனக்கு promise பண்ணுறேன் - எப்பவும் உன் பக்கத்துல இருப்பேன், உன்னை காப்பாத்துவேன், உன்னை நேசிப்பேன். நீயும் என் கூட எப்பவும் இருப்பியா? 💕
+                </div>
+                <div class="closing">நீ என்றும் என் Darllu தான் ❤️</div>
+                <div class="signature">எப்பவும் உன்னோடு,<br>உன் ❤️</div>
+                <button class="btn btn-whatsapp" id="whatsappBtn">Send reply ❤️</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Music Control
+        const audio = document.getElementById('bgMusic');
+        const musicControl = document.getElementById('musicControl');
+        
+        window.addEventListener('DOMContentLoaded', function() {
+            audio.volume = 0.5;
+            
+            audio.play().catch(err => {
+                console.log('Autoplay blocked, will retry on interaction');
+                
+                const playOnInteraction = () => {
+                    audio.play();
+                    document.removeEventListener('click', playOnInteraction);
+                    document.removeEventListener('touchstart', playOnInteraction);
+                };
+                
+                document.addEventListener('click', playOnInteraction);
+                document.addEventListener('touchstart', playOnInteraction);
+            });
+        });
+
+        musicControl.addEventListener('click', function() {
+            if (audio.paused) {
+                audio.play();
+                musicControl.textContent = '🔊';
+            } else {
+                audio.pause();
+                musicControl.textContent = '🔇';
+            }
+        });
+
+        // Screen Navigation
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        // Love Calculator
+        document.getElementById('calculateBtn').addEventListener('click', function() {
+            const progressContainer = document.getElementById('progressContainer');
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
+            const result = document.getElementById('result');
+            const continueBtn = document.getElementById('continueBtn');
+            
+            progressContainer.classList.add('show');
+            
+            setTimeout(() => {
+                progressBar.style.width = '100%';
+                progressText.textContent = '100%';
+            }, 100);
+            
+            setTimeout(() => {
+                createHeartsExplosion();
+                result.style.display = 'block';
+            }, 2100);
+            
+            setTimeout(() => {
+                continueBtn.style.display = 'block';
+            }, 4100);
+        });
+
+        function createHeartsExplosion() {
+            const container = document.createElement('div');
+            container.className = 'hearts-explosion';
+            document.body.appendChild(container);
+            
+            for (let i = 0; i < 15; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'explosion-heart';
+                heart.textContent = '💖';
+                heart.style.left = Math.random() * 200 - 100 + 'px';
+                heart.style.top = Math.random() * 200 - 100 + 'px';
+                heart.style.animationDelay = i * 0.1 + 's';
+                container.appendChild(heart);
+            }
+            
+            setTimeout(() => container.remove(), 2000);
+        }
+
+        document.getElementById('continueBtn').addEventListener('click', function() {
+            showScreen('screen1');
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+            setTimeout(() => {
+                document.getElementById('nextBtn1').style.display = 'block';
+            }, 5000);
+        });
+
+        // Countdown Timer
+        function updateCountdown() {
+            const startDate = new Date('2022-10-11T00:00:00+05:30');
+            const now = new Date();
+            const diff = now - startDate;
+            
+            const totalSeconds = Math.floor(diff / 1000);
+            const totalMinutes = Math.floor(totalSeconds / 60);
+            const totalHours = Math.floor(totalMinutes / 60);
+            const totalDays = Math.floor(totalHours / 24);
+            
+            const years = Math.floor(totalDays / 365);
+            const months = Math.floor((totalDays % 365) / 30.44);
+            const days = Math.floor((totalDays % 365) % 30.44);
+            const hours = totalHours % 24;
+            const minutes = totalMinutes % 60;
+            const seconds = totalSeconds % 60;
+            
+            document.getElementById('years').textContent = years;
+            document.getElementById('months').textContent = months;
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+        }
+
+        document.getElementById('nextBtn1').addEventListener('click', function() {
+            showScreen('screen2');
+        });
+
+        document.getElementById('continueBtn2').addEventListener('click', function() {
+            showScreen('screen3');
+            setTimeout(() => {
+                document.getElementById('nextBtn3').style.display = 'block';
+            }, 7500);
+        });
+
+        document.getElementById('nextBtn3').addEventListener('click', function() {
+            showScreen('screen4');
+        });
+
+        // Proposal Buttons
+        document.getElementById('yesBtn').addEventListener('click', function() {
+            document.getElementById('acceptModal').classList.add('active');
+            setTimeout(() => {
+                startCelebration();
+            }, 2000);
+        });
+
+        document.getElementById('noBtn').addEventListener('click', function() {
+            const overlay = document.getElementById('cryingOverlay');
+            overlay.classList.add('active');
+            
+            setTimeout(() => {
+                const message = encodeURIComponent('Sorry da... என்னால முடியாது 😢 நான் இப்போ ready இல்ல. Please புரிஞ்சுக்கோ 💔');
+                window.open(`https://wa.me/916383143107?text=${message}`, '_blank');
+            }, 2000);
+            
+            setTimeout(() => {
+                window.close();
+                setTimeout(() => {
+                    if (!window.closed) {
+                        window.location.href = 'about:blank';
+                    }
+                }, 100);
+            }, 3000);
+        });
+
+        document.getElementById('whatsappBtn').addEventListener('click', function() {
+            const message = encodeURIComponent('ஆமா Darllu! நான் எப்பவும் உன்னோட தான் இருப்பேன் 💕 I love you! ❤️');
+            window.open(`https://wa.me/916383143107?text=${message}`, '_blank');
+        });
+
+        // Celebration Effects
+        function startCelebration() {
+            setInterval(createFloatingHeart, 300);
+            setInterval(createConfetti, 100);
+        }
+
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = '❤️';
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+            document.body.appendChild(heart);
+            
+            setTimeout(() => heart.remove(), 5000);
+        }
+
+        let confettiCount = 0;
+        function createConfetti() {
+            if (confettiCount >= 50) return;
+            
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            const colors = ['#ff6b9d', '#ffd700', '#87ceeb', '#98fb98', '#dda0dd'];
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.animationDelay = Math.random() * 0.5 + 's';
+            document.body.appendChild(confetti);
+            confettiCount++;
+            
+            setTimeout(() => {
+                confetti.remove();
+                confettiCount--;
+            }, 3500);
+        }
+    </script>
+</body>
+</html>
